@@ -41,13 +41,6 @@ def board_full(board):
 joueur_actuel = "X"
 while True:
     try:
-        if check_winner(grille,joueur_actuel):
-            print(f'Félicitations {joueur_actuel} vous avez gagné')
-            break
-        elif board_full(grille):
-            print("Personne n'a gagné. Félicitations à vous deux!!!")
-            break
-        else:
             print(f"Tour du joueur {joueur_actuel}")
             pos = int(input("Entrez un numéro de case (1-9) : "))
 
@@ -57,8 +50,14 @@ while True:
             ligne, colonne = convertir_position(pos)
             if coup_valide(grille, pos):
                 grille[ligne][colonne] = joueur_actuel  # Place le symbole du joueur
-                joueur_actuel = changer_joueur(joueur_actuel)  # Change de joueur
                 afficher_plateau(grille)
+                if check_winner(grille,joueur_actuel):
+                    print(f'Félicitations {joueur_actuel} vous avez gagné')
+                    break
+                if board_full(grille):
+                    print("Personne n'a gagné. Félicitations à vous deux!!!")
+                    break
+                joueur_actuel = changer_joueur(joueur_actuel)  # Change de joueur
             else:
                 print("Case déjà occupée. Veuillez réessayer.")
     except ValueError:
